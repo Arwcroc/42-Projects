@@ -5,26 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 16:50:01 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/01/27 14:26:55 by tefroiss         ###   ########.fr       */
+/*   Created: 2020/06/13 17:46:36 by tefroiss          #+#    #+#             */
+/*   Updated: 2020/06/13 19:04:42 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t i;
-
-	if (str != NULL)
-	{
-		i = 0;
-		while (str[i] != '\0')
-			i++;
-		return (i);
-	}
-	return (0);
-}
+#include "../includes/libft.h"
 
 void	fill_stock(char **stock, char *buf)
 {
@@ -81,12 +67,12 @@ int		check_line(char **line, char **stock)
 int		get_next_line(int fd, char **line)
 {
 	int			read_result;
-	char		buf[(BUFFER_SIZE) + 1];
+	char		buf[1027];
 	static char	*stock = NULL;
 
-	if (fd >= 0 && BUFFER_SIZE > 0 && line != NULL && !read(fd, buf, 0))
+	if (fd >= 0 && line != NULL && !read(fd, buf, 0))
 	{
-		while ((read_result = read(fd, buf, BUFFER_SIZE)))
+		while ((read_result = read(fd, buf, 1)))
 		{
 			buf[read_result] = '\0';
 			fill_stock(&stock, buf);
