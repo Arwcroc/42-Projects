@@ -6,16 +6,11 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:36:29 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/08/18 17:34:30 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/02 16:18:54 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cub3d.h"
-
-int				is_wall(int x, int y, t_game *game)
-{
-	return (game->map.map[y][x] == 1);
-}
 
 void			update_side(t_ray *ray, t_game *game)
 {
@@ -56,7 +51,7 @@ static void		ray_init(t_ray *ray, t_game *game, int x)
 	ray->cam_coordinate = 2 * x / (double)game->window.width - 1;
 	direction = game->player.plane.mul_scalar(&game->player.plane, \
 				ray->cam_coordinate);
-	ray->direction = direction.add(&direction, game->player.orientation);
+	ray->direction = direction.add(&direction, game->player.or);
 	if (ray->direction.x && ray->direction.y)
 	{
 		ray->deltadist = ft_vector(fabs(1 / ray->direction.x), \
@@ -96,6 +91,9 @@ static void		cast_ray(t_ray *ray, t_game *game)
 			ray->point.y += ray->step.y;
 			ray->side = 1;
 		}
+		if (game->map.map[(int)ray->point.y][(int)ray->point.x] == 2 ||\
+		game->map.map[(int)ray->point.y][(int)ray->point.x] == 3)
+			tag_sprite(ray, game);
 	}
 	good_text(game, ray);
 }
@@ -104,25 +102,19 @@ int				ft_ray(t_game *game)
 {
 	t_ray	ray;
 	int		x;
-	int		y;
 
-	y = 0;
 	x = 0;
+	cleanbuff(game);
 	while (x < game->window.width)
 	{
 		ray_init(&ray, game, x);
+		ft_sprite_pos(game);
 		cast_ray(&ray, game);
 		draw(game, &ray, x);
-		game->sbuffer[x] = game->line.dist;
-		while (y < game->window.height)
-		{
-			if (game->map.map[x][y] == 2 || game->map.map[x][y] == 3)
-				game->good_sp = game->map.map[x][y] == 2 ? game->s1 : game->s2;
-			y++;
-		}
+		game->buf[game->window.width - x - 1] = game->line.dist;
 		x++;
 	}
 	sprite_casting(game);
-	drawbuff(game);
+	cleanbuff(game);
 	return (0);
 }

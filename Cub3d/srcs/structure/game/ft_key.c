@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 14:12:21 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/07/10 14:29:30 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/08/31 15:32:40 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ int			ft_handle_release(int keycode, t_game *game)
 int			ft_handle_events(int keycode, t_game *game)
 {
 	if (keycode == ESCAPE)
-	{
-		// game->finish(game);
-		// exit(EXIT_SUCCESS);
 		exit(0);
-	}
 	if (keycode == RIGHT)
 		game->key[0] = RIGHT;
 	else if (keycode == LEFT)

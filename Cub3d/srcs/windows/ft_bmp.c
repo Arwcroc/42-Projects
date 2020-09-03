@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:15:51 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/07/27 18:13:12 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/03 13:48:11 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,13 @@ void		write_bmp_header(t_game *game)
 	int				fd;
 
 	bmp_init(game, &bmp);
+	ft_printf("Initialize screenshot...\n");
 	if ((fd = open("cub3d.bmp", O_WRONLY | O_CREAT, S_IRWXU | O_TRUNC)) < 0)
+	{
+		ft_printf("Screenshot failed !");
 		exit(0);
+	}
+	ft_printf("Screenshot success !\n");
 	write_header(&bmp, fd);
 	write_pixel(&bmp, game, fd);
 	close(fd);

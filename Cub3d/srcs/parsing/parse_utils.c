@@ -6,13 +6,13 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 16:31:07 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/06/25 12:23:36 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/08/31 15:24:25 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	ft_split_and_check(char *str, int c, char *charcode)
+int		ft_split_and_check(char *str, int c, char *charcode)
 {
 	char	**str_splitted;
 	int		result;
@@ -43,7 +43,7 @@ char	*ft_move_until(char *str, char *bool, int (*f)(int))
 	return (str);
 }
 
-char	*searchLine(char *path, char *code)
+char	*search_line(char *path, char *code)
 {
 	int		fd;
 	char	*line;
@@ -64,7 +64,7 @@ char	*searchLine(char *path, char *code)
 	return (NULL);
 }
 
-int	check_alpha_in_line(char *line)
+int		check_alpha_in_line(char *line)
 {
 	int i;
 
@@ -78,7 +78,7 @@ int	check_alpha_in_line(char *line)
 	return (!(i > 1));
 }
 
-int	ft_fd_is_here(char *path)
+int		ft_fd_is_here(char *path)
 {
 	int fd;
 	int result;

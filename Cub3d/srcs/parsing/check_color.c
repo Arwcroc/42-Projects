@@ -6,23 +6,23 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 14:07:47 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/06/25 12:23:44 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/03 15:26:07 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static inline int	nb_color(int c)
+int		nb_color(int c)
 {
 	return (ft_isdigit(c) || c == '-');
 }
 
-static inline int	color_restriction(int c)
+int		color_restriction(int c)
 {
-	return (c >= 0 && c <=255);
+	return (c >= 0 && c <= 255);
 }
 
-static inline int	color_line(char *line, int n)
+int		color_line(char *line, int n)
 {
 	if (line && *line && n < 3 && check_alpha_in_line(line))
 	{
@@ -39,11 +39,11 @@ static inline int	color_line(char *line, int n)
 	return (!line && n == 3);
 }
 
-static int	color_is_ok(char *path, char *code)
+int		color_is_ok(char *path, char *code)
 {
 	char *line;
 
-	if ((line = searchLine(path, code)) && color_line(line, 0))
+	if ((line = search_line(path, code)) && color_line(line, 0))
 	{
 		free(line);
 		return (1);
@@ -54,15 +54,22 @@ static int	color_is_ok(char *path, char *code)
 
 void	check_color(char *path)
 {
-	static char *code[2] = {"F", "C"};
-	int i;
+	static char		*code[2] = {"F", "C"};
+	int				i;
 
 	i = 0;
+	ft_printf("Check color...\n");
 	while (i < 2)
 	{
 		if (color_is_ok(path, code[i]))
+		{
+			ft_printf("Color %d OK !\n", i + 1);
 			i++;
+		}
 		else
+		{
+			ft_printf("Error\nColor %d corrupt !\n", i + 1);
 			exit(0);
+		}
 	}
 }

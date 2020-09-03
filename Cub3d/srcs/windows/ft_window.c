@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 14:42:59 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/07/08 15:47:02 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/08/31 15:27:05 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_window	ft_window(double *width, double *height, char *name)
 	y = 1440;
 	if (!(new.mlx_ptr = mlx_init()))
 		exit(EXIT_FAILURE);
-	//mlx_get_screen_size(new.mlx_ptr, &x, &y);
+//	mlx_get_screen_size(new.mlx_ptr, &x, &y);
 	*width = *width > x ? x : *width;
 	*height = *height > y ? y : *height;
 	if (!(new.win_ptr = mlx_new_window(new.mlx_ptr, *width, *height, name)))
@@ -30,11 +30,10 @@ t_window	ft_window(double *width, double *height, char *name)
 	new.width = *width;
 	new.height = *height;
 	new.img = ft_image(new, *width, *height);
-	//new.clear = ft_clear_image;
 	return (new);
 }
 
-void	put_pixel(t_window *window, t_vector point, t_color color)
+void		put_pixel(t_window *window, t_vector point, t_color color)
 {
 	int	set;
 

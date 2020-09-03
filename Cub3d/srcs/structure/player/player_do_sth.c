@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:45:55 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/07/10 14:24:34 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:57:31 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	go_upside_down(t_game *game, t_vector vector)
 	coor = game->player.coordinate;
 	move = coor.sub(&coor, vector.mul_scalar(&vector, STEP));
 	if (!is_wall(move.x, move.y, game))
-		game->player.coordinate = move;
+		if (!is_wall_mv(move.x, move.y, game))
+			game->player.coordinate = move;
 }
 
 void	go_upside(t_game *game, t_vector vector)
@@ -31,10 +32,11 @@ void	go_upside(t_game *game, t_vector vector)
 	coor = game->player.coordinate;
 	move = coor.add(&coor, vector.mul_scalar(&vector, STEP));
 	if (!is_wall(move.x, move.y, game))
-		game->player.coordinate = move;
+		if (!is_wall_mv(move.x, move.y, game))
+			game->player.coordinate = move;
 }
 
-int	player_move(t_game *game)
+int		player_move(t_game *game)
 {
 	int upd;
 
@@ -44,8 +46,8 @@ int	player_move(t_game *game)
 	else if (game->key[1] != -1 && (upd = 1))
 		go_upside_down(game, game->player.plane);
 	if (game->key[2] != -1 && (upd = 1))
-		go_upside_down(game, game->player.orientation);
+		go_upside_down(game, game->player.or);
 	else if (game->key[3] != -1 && (upd = 1))
-		go_upside(game, game->player.orientation);
+		go_upside(game, game->player.or);
 	return (upd);
 }

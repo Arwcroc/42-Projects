@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:49:10 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/07/27 16:33:14 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/03 12:12:11 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct		s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-
 
 int					ft_atoi(const char *str);
 int					ft_isalnum(int c);

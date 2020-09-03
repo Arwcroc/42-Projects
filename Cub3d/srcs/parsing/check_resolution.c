@@ -6,18 +6,18 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 15:28:05 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/06/25 12:23:43 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/03 14:38:30 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static inline int	nb_resolution(int c)
+int	nb_resolution(int c)
 {
 	return (ft_isdigit(c) || c == '-');
 }
 
-static inline int	resolution_line(char *line, int n)
+int	resolution_line(char *line, int n)
 {
 	if (line && *line && n < 2 && check_alpha_in_line(line))
 	{
@@ -34,16 +34,18 @@ static inline int	resolution_line(char *line, int n)
 	return (!line && n == 2);
 }
 
-int					check_resolution(char *path)
+int	check_resolution(char *path)
 {
 	char *line;
-
-	if ((line = searchLine(path, "R")) && resolution_line(line, 0))
+	ft_printf("Check resolution...\n");
+	if ((line = search_line(path, "R")) && resolution_line(line, 0))
 	{
 		free(line);
+		ft_printf("Resolution OK !\n");
 		return (1);
 	}
 	free(line);
+	ft_printf("Error\nResolution corrupt !\n");
 	exit(EXIT_FAILURE);
 	return (0);
 }
