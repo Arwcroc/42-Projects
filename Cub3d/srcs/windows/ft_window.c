@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 14:42:59 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/08/31 15:27:05 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/04 17:03:50 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_window	ft_window(double *width, double *height, char *name)
 	y = 1440;
 	if (!(new.mlx_ptr = mlx_init()))
 		exit(EXIT_FAILURE);
-//	mlx_get_screen_size(new.mlx_ptr, &x, &y);
+	mlx_get_screen_size(new.mlx_ptr, &x, &y);
 	*width = *width > x ? x : *width;
 	*height = *height > y ? y : *height;
 	if (!(new.win_ptr = mlx_new_window(new.mlx_ptr, *width, *height, name)))

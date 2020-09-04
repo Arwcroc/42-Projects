@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 17:26:06 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/09/03 15:55:55 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:53:12 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,26 @@ void	init_sprite(t_game *game)
 
 	i = -1;
 	if (!(game->s_order = malloc(sizeof(int *) * (game->count_s + 1))))
+	{
+		ft_printf("Error\nSprite Order's malloc failed");
 		exit(0);
+	}
 	if (!(game->s_dist = malloc(sizeof(int *) * (game->count_s + 1))))
+	{
+		ft_printf("Error\nSprite Distance's malloc failed");
 		exit(0);
+	}
 	if (!(game->all_s = malloc(sizeof(t_sprite) * (game->count_s + 1))))
+	{
+		ft_printf("Error\nAll_sprite's malloc failed");
 		exit(0);
+	}
 	if (!(game->buf = (double *)malloc(sizeof(double) * \
 		(game->window.width * game->window.height))))
+	{
+		ft_printf("Error\nSprite Buffer's malloc failed");
 		exit(0);
+	}
 }
 
 t_game	ft_game(char *path)

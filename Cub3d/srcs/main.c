@@ -6,7 +6,7 @@
 /*   By: tefroiss <tefroiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 15:41:40 by tefroiss          #+#    #+#             */
-/*   Updated: 2020/09/03 15:56:58 by tefroiss         ###   ########.fr       */
+/*   Updated: 2020/09/04 17:03:50 by tefroiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 **	norme
 **	check map
-**	vm utilisation
 **	stop error condition
 */
 
