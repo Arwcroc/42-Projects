@@ -1,20 +1,18 @@
-section .text
-	global _ft_strcpy
+			global	ft_strcpy
 
-_ft_strcpy:
-    mov rax, rsi
-	mov rdx, rdi
+			section	.text
+ft_strcpy:
+			xor		rax, rax
 
-_while:
-    cmp byte [rsi], 0
-    jz _end
-    mov al, [rsi]
-    mov [rdi], al
-    inc rdi
-	inc rsi
-    jmp _while
+_loop:
+			mov		cl, byte [rsi + rax]
+			cmp		cl, 0
+			je		_end
+			mov		byte [rdi + rax], cl
+			inc		rax
+			jmp		_loop
 
 _end:
-	mov byte [rdi], 0
-    mov rax, rdx
-    ret
+			mov		byte [rdi + rax], 0
+			mov		rax, rdi
+			ret

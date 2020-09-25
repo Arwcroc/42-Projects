@@ -1,32 +1,24 @@
-section .text
-    global _ft_write
+			global	ft_write
+			extern	__errno_location
 
-;_ft_write:
-;   mov rax, 0x2000004
-;  syscall
-;jnc _end
-;mov rax, -1
+			section	.text	
+ft_write:
+			cmp		rdi, 0
+			jl		_err_end
+			cmp		rsi, 0
+			jle		_err_end
 
-;_end:
-;	ret
+_go_write:
+			mov		rax, 1
+			syscall
+			cmp		rax, 0
+			jl		_err_end
+			ret
 
-
-_ft_write:
-    cmp edi, 0
-    jl _error
-    cmp rdx, 0
-    jl _error
-    cmp rsi, 0
-    jle _error
-
-_write:
-    mov rax, 1
-    syscall
-    cmp rax, 0
-    jl _error
-    mov rax, rdx
-    ret
-
-_error:
-    mov rax, -1
-    ret
+_err_end:
+			neg		rax
+			mov		rcx, rax
+			call	__errno_location
+			mov		[rax], rcx
+			mov		rax, -1
+			ret

@@ -1,43 +1,69 @@
-SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
+SRCS		=	ft_strlen.s \
+				ft_strcpy.s \
+				ft_strcmp.s \
+				ft_write.s \
+				ft_read.s \
+				ft_strdup.s
 
-SRCC = main.c 
+BONUS		=	atoi_base_bonus.s \
+				ft_list_push_front_bonus.s \
+				ft_list_size_bonus.s \
+				ft_list_sort_bonus.s \
+				ft_list_remove_if_bonus.s
 
-OBJS = ${SRCS:.s=.o}
-OBJC = ${SRCC:.c=.o}
+SRCC		=	main.c 
 
-NAME = libasm.a
-NAME_TEST = libasm.out
+OBJS		=	${SRCS:.s=.o}
+OBJC		=	${SRCC:.c=.o}
+OBJS_B		=	${BONUS:.s=.o}
 
-RM	= rm -f
+NAME		=	libasm.a
+NAME_TEST	=	libasm.out
+NAME_BONUS	=	libasm_bonus.out
 
-CC = gcc
+RM			=	rm -f
 
-CFLAG = -Wall -Wextra -Werror
+CC			=	clang
 
-all:	${NAME}
+NASM		=	nasm -f elf64
 
-.s.o:
-	nasm -fmacho64 $<
+CFLAG		=	-Wall -Wextra -Werror -Ofast -pedantic-errors
 
-.c.o:
-	${CC} ${CFLAG} -c  $< -o ${<:.c=.o}
+INCS		=	./libasm.h
 
-all: ${NAME}
+#########################################################################################
+#										MAKE											#
+#########################################################################################
 
-${NAME}: ${OBJS} lib.h
-	ar rc ${NAME} ${OBJS}
+%.o				:	%.s 
+					${NASM} $< -o $@
 
-test: ${NAME_TEST}
+%.o				:	%.c $(INCS)
+					${CC} ${CFLAG} -c  $< -o $@
 
-${NAME_TEST}:	${NAME} ${OBJC}
-	${RM} $(OBJM)
-	${CC} ${NAME} ${OBJC} -o ${NAME_TEST}
+all				:	${NAME}
 
-clean :
-	${RM} ${OBJS} ${OBJC} ${OBJB} ${OBJM}
+${NAME}			:	${OBJS}
+					ar rc ${NAME} ${OBJS}
 
-fclean:	clean
-	${RM} ${NAME}
-	${RM} ${NAME_TEST}
+test			:	${NAME_TEST}
 
-re: 	fclean all
+${NAME_TEST}	:	${NAME} ${OBJC}
+					${CC} ${CFLAGS} ${NAME} ${OBJS} ${OBJC} -o ${NAME_TEST}
+
+bonus			:	${NAME_BONUS}
+
+${NAME_BONUS}	:	${NAME} ${OBJC} ${OBJS_B}
+					${CC} ${CFLAGS} ${NAME} ${OBJS} ${OBJC} ${OBJS_B} -o ${NAME_BONUS}
+
+clean			:
+					${RM} ${OBJS} ${OBJC} ${OBJS_B}
+
+fclean			:	clean
+					${RM} ${NAME}
+					${RM} ${NAME_TEST}
+					${RM} ${NAME_BONUS}
+
+re				:	fclean all
+
+.PHONY			:	re fclean clean bonus test all

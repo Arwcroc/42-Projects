@@ -1,11 +1,24 @@
-section .text
-	global _ft_read
+			global	ft_read
+			extern	__errno_location
 
-_ft_read:
-	mov rax, 0x2000003
-	syscall
-	jnc _end
-	mov rax, -1
+			section	.text	
+ft_read:
+			cmp		rdi, 0
+			jl		_err_end
+			cmp		rsi, 0
+			jle		_err_end
 
-_end:
-	ret
+_go_read:
+			mov		rax, 0
+			syscall
+			cmp		rax, 0
+			jl		_err_end
+			ret
+
+_err_end:
+			neg		rax
+			mov		rcx, rax
+			call	__errno_location
+			mov		[rax], rcx
+			mov		rax, -1
+			ret
